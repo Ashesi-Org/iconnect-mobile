@@ -54,5 +54,6 @@ export default FormField;
 const styles = StyleSheet.create({
   input: {
     textAlignVertical: 'top',
+    padding: 5,
   },
 });

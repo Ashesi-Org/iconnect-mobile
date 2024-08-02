@@ -1,18 +1,19 @@
 import { useState } from 'react';
 import { router } from 'expo-router';
-import { ResizeMode, Video } from 'expo-av';
 import * as DocumentPicker from 'expo-document-picker';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { View, Text, Alert, Image, TouchableOpacity, ScrollView } from 'react-native';
-
+import Toast from 'react-native-toast-message';
 import { icons } from '../../constants';
 import { createVideoPost } from '../../lib/appwrite';
 import { CustomButton, FormField } from '../../components';
 import { useGlobalContext } from '../../context/GlobalProvider';
+import useNotifications from '../../hooks/use-notifications';
 
 const Create = () => {
   const { user } = useGlobalContext();
   const [uploading, setUploading] = useState(false);
+  const { expoPushToken, sendPushNotification } = useNotifications();
   const [form, setForm] = useState({
     title: '',
     video: null,
@@ -41,14 +42,20 @@ const Create = () => {
       }
     } else {
       setTimeout(() => {
-        Alert.alert('Document picked', JSON.stringify(result, null, 2));
+        Toast.show({
+          type: 'info',
+          text1: `No image was selecred `,
+        });
       }, 100);
     }
   };
 
   const submit = async () => {
     if ((form.prompt === '') | !form.thumbnail) {
-      return Alert.alert('Please provide all fields');
+      return Toast.show({
+        type: 'info',
+        text1: `Fill all fields `,
+      });
     }
 
     setUploading(true);
@@ -58,10 +65,18 @@ const Create = () => {
         userId: user.$id,
       });
 
-      Alert.alert('Success', 'Post uploaded successfully');
+      Toast.show({
+        type: 'success',
+        text1: `Post added successfully`,
+      });
+      sendPushNotification(expoPushToken, 'Iconnect', 'Post created successfully');
+
       router.push('/home');
     } catch (error) {
-      Alert.alert('Error', error.message);
+      Toast.show({
+        type: 'error',
+        text1: `An error occured`,
+      });
     } finally {
       setForm({
         title: '',
@@ -69,7 +84,6 @@ const Create = () => {
         thumbnail: null,
         prompt: '',
       });
-
       setUploading(false);
     }
   };
@@ -78,7 +92,7 @@ const Create = () => {
     <SafeAreaView className="bg-primary h-full">
       <ScrollView className="px-4">
         <FormField
-          title="Title"
+          title="Title (Optional)"
           value={form.title}
           placeholder="ex: Graduating in 30 days..."
           handleChangeText={(e) => setForm({ ...form, title: e })}

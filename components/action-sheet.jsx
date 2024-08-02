@@ -2,7 +2,7 @@ import React, { forwardRef, useCallback } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { BottomSheetModal, BottomSheetView, BottomSheetBackdrop } from '@gorhom/bottom-sheet';
 
-const ActionSheet = forwardRef(({ children, snapPoints = ['25%', '30%'], backdropProps = {} }, ref) => {
+const ActionSheet = forwardRef(({ children, snapPoints = ['25%', '40%', '70%'] }, ref) => {
   // Callback to render the backdrop
   const renderBackdrop = useCallback(
     (props) => <BottomSheetBackdrop {...props} disappearsOnIndex={-1} appearsOnIndex={0} />,

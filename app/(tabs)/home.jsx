@@ -1,11 +1,11 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { FlatList, Image, RefreshControl, TouchableOpacity, Text, View } from 'react-native';
 import useAppwrite from '../../lib/useAppwrite';
 import { getAllPosts, getLatestPosts } from '../../lib/appwrite';
 import { EmptyState, SearchInput, Trending } from '../../components';
 import { useGlobalContext } from '../../context/GlobalProvider';
-import { router } from 'expo-router';
+import { router, useFocusEffect } from 'expo-router';
 import PostCard from '../../components/post-card';
 
 const Home = () => {
@@ -21,7 +21,11 @@ const Home = () => {
     setRefreshing(false);
   };
 
-  // console.log(posts);
+  useFocusEffect(
+    useCallback(() => {
+      refetch();
+    }, [])
+  );
 
   return (
     <SafeAreaView className="bg-primary h-screen">

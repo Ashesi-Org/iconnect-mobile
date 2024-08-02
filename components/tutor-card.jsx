@@ -1,17 +1,20 @@
 import { useRef, useEffect, useState } from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import ActionSheet from './action-sheet';
-import Entypo from '@expo/vector-icons/Entypo';
 import CustomButton from './CustomButton';
 import { BottomSheetTextInput } from '@gorhom/bottom-sheet';
 import AntDesign from '@expo/vector-icons/AntDesign';
+import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 import * as MailComposer from 'expo-mail-composer';
 import Toast from 'react-native-toast-message';
+import useNotifications from '../hooks/use-notifications';
 
 export const TutorCard = ({ name, image, location, spotsLeft }) => {
   const bottomSheetModalRef = useRef(null);
   const [isAvailable, setIsAvailable] = useState(false);
   const [note, setNote] = useState('');
+
+  const { expoPushToken, sendPushNotification } = useNotifications();
 
   const handlePressModal = () => {
     bottomSheetModalRef.current?.present();
@@ -30,11 +33,12 @@ export const TutorCard = ({ name, image, location, spotsLeft }) => {
 
   const handleBook = async () => {
     // Handle the booking logic here
-    // await MailComposer.composeAsync({
-    //   subject: `Booking a slot for a ${spotsLeft} session`,
-    //   body: "I would like to book a slot for a session with you. I'm looking forward to it.",
-    //   recipients: [`${name}@ashesi.edu.gh`],
-    // });
+    await MailComposer.composeAsync({
+      subject: `Booking a slot for a ${spotsLeft} session`,
+      body: "I would like to book a slot for a session with you. I'm looking forward to it.",
+      recipients: [`${name}@ashesi.edu.gh`],
+    });
+    sendPushNotification(expoPushToken, 'Iconnect', 'Peer tutor booked successfully');
 
     Toast.show({
       type: 'success',
@@ -76,8 +80,8 @@ export const TutorCard = ({ name, image, location, spotsLeft }) => {
               <Image source={{ uri: image }} className="w-32 h-32 rounded-xl" resizeMode="cover" />
             </View>
             <View className="pt-3">
-              <View className="flex flex-row items-center mb-2">
-                <Entypo name="location-pin" size={26} color="gray" />
+              <View className="flex flex-row items-center mb-2 gap-2">
+                <FontAwesome6 name="building-columns" size={16} color="gray" />
                 <Text className="text-md text-gray-500 font-pmedium">{location}</Text>
               </View>
               <View className="flex flex-row items-center mt-1">

@@ -62,10 +62,7 @@ async function registerForPushNotificationsAsync() {
       handleRegistrationError('Permission not granted to get push token for push notification!');
       return;
     }
-    const projectId =
-      Constants?.expoConfig?.extra?.eas?.projectId ??
-      Constants?.easConfig?.projectId ??
-      'cc4544cb-15e5-4891-b726-9076ec385ce4';
+    const projectId = Constants?.expoConfig?.extra?.eas?.projectId ?? Constants?.easConfig?.projectId;
     if (!projectId) {
       handleRegistrationError('Project ID not found');
     }

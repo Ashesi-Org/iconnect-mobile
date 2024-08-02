@@ -11,9 +11,8 @@ const FindPlaces = () => {
 
   return (
     <SafeAreaView style={styles.safeArea}>
-      <View style={styles.container}>
-        <ActionSheet ref={bottomSheetModalRef} />
-        <Button title="Open Modal" color="black" onPress={handlePressModal} />
+      <View>
+        <Text>Map</Text>
       </View>
     </SafeAreaView>
   );

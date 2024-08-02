@@ -8,38 +8,31 @@ const StudySpots = () => {
   const spots = [
     {
       id: 1,
-      name: 'Abdul-Wahab',
+      name: 'Mabel Asare',
       location: 'CS Department',
       spotsLeft: 'Calculus',
-      image: 'https://www.ashesi.edu.gh/images/campus/computer_centre_inside.jpg',
+      image: 'https://www.ashesi.edu.gh/images/2018_Website/Student_Life/asc_2023_24/Kezia_Asante.jpg',
     },
     {
       id: 2,
-      name: 'Richard Gbamara',
+      name: 'Wofa Yamoah',
       location: 'CS Department',
       spotsLeft: 'Pre-Calculus',
-      image: 'https://www.ashesi.edu.gh/images/campus/warrenlibrary_inside.jpg',
+      image: 'https://www.ashesi.edu.gh/images/2018_Website/Student_Life/asc_2023_24/Wofa-Yamoah-Frimpong-Attafuah.jpg',
     },
     {
       id: 3,
-      name: 'Gordon Duku',
+      name: 'Jack Odoi',
       location: 'BA Department',
       spotsLeft: 'Finance',
-      image: 'https://www.ashesi.edu.gh/images/2018_Website/Admissions/advantage/Campus/Ashesi_Apt_Hall_Hangout.jpg',
+      image: 'https://www.ashesi.edu.gh/images/student_affairs/TK_Azaglo_OSCA.jpg',
     },
     {
       id: 4,
-      name: 'Henry Owusu',
+      name: 'Joshua Owusu',
       location: 'MIS Deapartment',
       spotsLeft: 'Data Analysis',
-      image: 'https://miro.medium.com/v2/resize:fit:1400/1*_YLAtSSJSpXoOwHoZHer_A.jpeg',
-    },
-    {
-      id: 5,
-      name: 'Hafiz Adjei',
-      location: 'Engineering ',
-      spotsLeft: 'Power Systems',
-      image: 'https://miro.medium.com/v2/resize:fit:1400/1*_YLAtSSJSpXoOwHoZHer_A.jpeg',
+      image: 'https://miro.medium.com/v2/resize:fit:960/1*KQ0q5ETOz5jznyE3TrmdXQ.jpeg',
     },
   ];
 

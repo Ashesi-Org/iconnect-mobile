@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { Link, router } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { View, Text, ScrollView, Dimensions, Alert, Image } from 'react-native';
-
+import { View, Text, ScrollView, Dimensions, Image } from 'react-native';
+import Toast from 'react-native-toast-message';
 import { images } from '../../constants';
 import { createUser } from '../../lib/appwrite';
 import { CustomButton, FormField } from '../../components';
@@ -20,7 +20,10 @@ const SignUp = () => {
 
   const submit = async () => {
     if (form.username === '' || form.email === '' || form.password === '') {
-      Alert.alert('Error', 'Please fill in all fields');
+      Toast.show({
+        type: 'info',
+        text1: `Please fill all fields`,
+      });
     }
 
     setSubmitting(true);
@@ -28,10 +31,17 @@ const SignUp = () => {
       const result = await createUser(form.email, form.password, form.username);
       setUser(result);
       setIsLogged(true);
-
+      Toast.show({
+        type: 'success',
+        text1: `Welcome`,
+      });
       router.replace('/sign-in');
     } catch (error) {
-      Alert.alert('Error', error.message);
+      Toast.show({
+        type: 'error',
+        text1: `Password must be between 8 and 265 characters`,
+      });
+      console.log(error.message);
     } finally {
       setSubmitting(false);
     }
